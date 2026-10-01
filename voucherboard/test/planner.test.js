@@ -15,6 +15,13 @@ test("finds zones by the portal's zone name", () => {
   assert.strictEqual(Z.findZone("Q - Nowhere"), null);
 });
 
+test("zone B takes the hours of both B1 and B2", () => {
+  const b = Z.findZone("B - Lewisham Central");
+  const hrs = (dk) => P.controls(b, new Date(dk + "T12:00:00")).map((r) => P.hm(r.f) + "-" + P.hm(r.t));
+  assert.deepStrictEqual(hrs("2026-10-03"), ["09:00-19:00"]);
+  assert.deepStrictEqual(hrs("2026-10-04"), ["09:00-13:30"]);
+});
+
 test("skips hours outside controls and books consecutive hours", () => {
   const plan = P.allocate(ctx(), [entry(1, "AB12CDE", "2026-09-29", 8 * 60, 14 * 60)], { h1: 9 }, "cheapest");
   assert.deepStrictEqual(plan.items[0].acts.map((a) => P.hm(a.start)), ["10:00", "11:00"]);

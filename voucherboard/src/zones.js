@@ -9,6 +9,8 @@
 
   const ZONES = [
     Z("BHA", "Blackheath", [{ d: MS, f: H(9), t: H(19) }]),
+    // A zone B permit covers B1 and B2, so it takes the union of their hours.
+    Z("B", "Lewisham Central (B1 and B2)", [{ d: MS, f: H(9), t: H(19) }, { d: [7], f: H(9), t: H(13, 30) }]),
     Z("B1", "Lewisham Central", [{ d: MS, f: H(9), t: H(19) }]),
     Z("B2", "Lewisham Central Southern", [{ d: MS, f: H(9), t: H(19) }, { d: [7], f: H(9), t: H(13, 30) }]),
     Z("C", "Hindsley Place", [{ d: MS, f: H(8), t: H(18, 30) }]),
